@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "36685423342",
+    "firebase_url": "https://fishrecognition-d9b0e.firebaseio.com",
+    "project_id": "fishrecognition-d9b0e",
+    "storage_bucket": "fishrecognition-d9b0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36685423342:android:b5a27bc184a4537f",
+        "android_client_info": {
+          "package_name": "com.example.fishrecognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36685423342-t54295pfv1r9mumcp91ujc38iphd3hnq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fishrecognition",
+            "certificate_hash": "fbdf210fc8f2f8068b9dcf3ef6d8311295435fc1"
+          }
+        },
+        {
+          "client_id": "36685423342-h9cdkl5rrt0ra5gpm2ucgs20mmqeemiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlHEuatfOOFbk4Pha2Zmx7_vWvh5zwre4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36685423342-h9cdkl5rrt0ra5gpm2ucgs20mmqeemiq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

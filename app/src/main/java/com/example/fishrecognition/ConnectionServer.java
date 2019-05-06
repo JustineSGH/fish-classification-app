@@ -3,11 +3,15 @@ package com.example.fishrecognition;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;

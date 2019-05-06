@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -33,10 +34,10 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity implements Callback{
 
     ImageView idImage;
-    TextView textView;
     Integer SELECT_FILE = 0;
     public Uri imageUri;
     public ContentValues values;
+    public Bitmap thumbnail;
     public static final int WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1;
     public static final int READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 2;
     public static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -49,9 +50,7 @@ public class MainActivity extends AppCompatActivity implements Callback{
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         idImage = (ImageView) findViewById(R.id.idImage);
-        textView = findViewById(R.id.textView);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -111,32 +110,21 @@ public class MainActivity extends AppCompatActivity implements Callback{
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
                 try {
-                    Bitmap thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                     idImage.setImageBitmap(thumbnail);
-                    connection.registerCallback((Callback) this);
-                    connection.postData(thumbnail);
-
                     String imageurl = getRealPathFromURI(imageUri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                /*Bundle bundle = data.getExtras();
-                Bitmap bmp = (Bitmap) bundle.get("data");
-                idImage.setImageBitmap(bmp);
-                MediaStore.Images.Media.insertImage(getContentResolver(), bmp, "fish" , "fish");*/
             }else if(requestCode == SELECT_FILE){
                 Uri selectedImageUri = data.getData();
-                Bitmap thumbnail = null;
+                thumbnail = null;
                 try {
                     thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 idImage.setImageBitmap(thumbnail);
-                connection.registerCallback((Callback) this);
-                connection.postData(thumbnail);
-                //idImage.setImageURI(selectedImageUri);
             }
         }
     }
@@ -162,25 +150,22 @@ public class MainActivity extends AppCompatActivity implements Callback{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onGetData(JSONObject obj) {
-        try {
-            //obj.getJSONObject("result");
-            //Log.d("result", String.valueOf(obj.getJSONObject("result")));
-            String body = obj.getString("result");
-            textView.setText(body);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //textView.setText(obj);
+        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+        intent.putExtra("ResultObject", obj.toString());
+        startActivity(intent);
+    }
+
+    public void onClickSendToServer(View view) {
+        connection.registerCallback(this);
+        connection.postData(thumbnail);
     }
 }

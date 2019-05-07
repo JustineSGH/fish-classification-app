@@ -1,14 +1,10 @@
 package com.example.fishrecognition;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
+import android.os.AsyncTask;
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -26,16 +22,92 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class ConnectionServer extends AppCompatActivity {
+public class ConnectionServer extends AsyncTask<Bitmap, Void, JSONObject> {
 
-    private static final String NOTIF_CHANNEL_ID = "Channel_Id";
-    private Callback listener;
+    //private static final String NOTIF_CHANNEL_ID = "Channel_Id";
+    private Context context;
+    ProgressBar progressBar;
 
-    public void registerCallback(Callback callback){
-        listener = callback;
+    public ConnectionServer(Context context){
+        this.context = context.getApplicationContext();
     }
 
-    public static void getData(){
+    public void setProgressBar(ProgressBar bar) {
+        this.progressBar = bar;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected JSONObject doInBackground(Bitmap... imageToSend) {
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            URL url = new URL("http://51.83.73.150:3000/upload-image");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            //conn.setDoInput(true);
+            //conn.setDoOutput(true);
+
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Cache-Control", "no-cache");
+
+            conn.setReadTimeout(35000);
+            conn.setConnectTimeout(35000);
+
+            OutputStream os = conn.getOutputStream();
+            imageToSend[0].compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.flush();
+            os.close();
+
+            System.out.println("Response Code: " + conn.getResponseCode());
+
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            BufferedReader responseStreamReader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = responseStreamReader.readLine()) != null)
+                stringBuilder.append(line).append("\n");
+            responseStreamReader.close();
+
+            String response = stringBuilder.toString();
+            JSONObject jObject = new JSONObject(response);
+
+            conn.disconnect();
+            return jObject;
+        }
+        catch(MalformedURLException e) {
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
+    }
+
+    @Override
+    protected void onPostExecute(JSONObject result) {
+        super.onPostExecute(result);
+        if (this.progressBar != null) {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+        Intent intent = new Intent(context, ResultActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("ResultObject", result.toString());
+        context.startActivity(intent);
+    }
+
+    /*public static void getData(){
         try
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -67,69 +139,15 @@ public class ConnectionServer extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public void postData(Bitmap imageToSend){
-        try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            URL url = new URL("http://51.83.73.150:3000/upload-image");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            //conn.setDoInput(true);
-            //conn.setDoOutput(true);
-
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("Cache-Control", "no-cache");
-
-            conn.setReadTimeout(35000);
-            conn.setConnectTimeout(35000);
-
-            OutputStream os = conn.getOutputStream();
-            imageToSend.compress(Bitmap.CompressFormat.JPEG, 100, os);
-            os.flush();
-            os.close();
-
-            System.out.println("Response Code: " + conn.getResponseCode());
-
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            BufferedReader responseStreamReader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
-            StringBuilder stringBuilder = new StringBuilder();
-            while ((line = responseStreamReader.readLine()) != null)
-                stringBuilder.append(line).append("\n");
-            responseStreamReader.close();
-
-            String response = stringBuilder.toString();
-            JSONObject jObject = new JSONObject(response);
-            //String body = jObject.getString("result");
-
-            if(jObject.length() > 0 && conn.getResponseCode() == 200){
-                Log.d("result" , String.valueOf(listener));
-                if (listener != null) {
-                    listener.onGetData(jObject);
-                }
-            }
-
-            conn.disconnect();
-        }
-        catch(MalformedURLException e) {
-            e.printStackTrace();
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void createNotification(){
+    /* public void createNotification(){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel("unique_channel_id", "channel_name", NotificationManager.IMPORTANCE_DEFAULT);
         }
-        /*Intent intent = new Intent(this, ConnectionServer.class);
+        Intent intent = new Intent(this, ConnectionServer.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);*/
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIF_CHANNEL_ID)
@@ -144,7 +162,7 @@ public class ConnectionServer extends AppCompatActivity {
 
 
 
-        /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             Log.d("testNotif", "testNotif");
             NotificationChannel notificationChannel = new NotificationChannel("unique_channel_id", "channel_name", NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.enableLights(true);
@@ -160,7 +178,7 @@ public class ConnectionServer extends AppCompatActivity {
             mBuilder.setContentIntent(contentIntent);
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
             notificationManager.notify(123456, mBuilder.build());
-        }*/
-    }
+        }
+    }*/
 
 }

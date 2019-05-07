@@ -1,0 +1,175 @@
+ {
+    "fishObject": [
+        {
+            "id": 1,
+            "nom": "Guppy",
+            "introduction": "Le guppy est l'un des poissons les plus connus et les plus répandus en aquariophilie, particulièrement chez les débutants",
+            "caracteristiques": {
+                "taille": "Entre 3 et 4cm",
+                "temperature": "18 - 28°C",
+                "pH": "5.5 - 8.0",
+                "GH": "6 - 15",
+                "Courant": "Faible - Moyen"
+            },
+            "comportement": {
+                "sociabilité": "Vivant en petits groupes",
+                "mode_de_vie": "diurne",
+                "territorial": "Non",
+                "type_de_nage": "Plutôt vif"
+            },
+            "reproduction": "Les guppys sont des poissons ovovivipares : les alevins sont incubés dans le ventre de la femelle. Lorsqu'ils sont libérés, ils sont déjà au stade de la nage libre et sont prêts à se nourrir seuls."
+        },
+        {
+            "id": 2,
+            "nom": "Néon",
+            "introduction": "Le Paracheirodon innesi, plus communément appelé néon bleu, est un petit poisson tropical d'eau douce originaire d'Amérique du sud.",
+            "caracteristiques": {
+                "taille": "Entre 3 et 4cm",
+                "temperature": "20 - 24°C",
+                "pH": "6.0 - 7.2",
+                "GH": "4 - 10",
+                "Courant": "Faible - Moyen"
+            },
+            "comportement": {
+                "sociabilité": "Vivant en banc",
+                "mode_de_vie": "Diurne",
+                "territorial": "Non",
+                "type_de_nage": "Plutôt vif"
+            },
+            "reproduction": "Le néon bleu est un poisson ovipare qui pond en eau libre."
+        },
+        {
+            "id": 3,
+            "nom": "Danio rerio",
+            "introduction": "Le Danio rerio, plus communément appelé poisson zèbre, est un petit poisson tropical d'eau douce originaire d'Asie.",
+            "caracteristiques": {
+                "taille": "Entre 4 et 5cm",
+                "temperature": "18 - 24°C",
+                "pH": "6.0 - 7.5",
+                "GH": "6 - 12",
+                "Courant": "Modéré - Lent - Stagnant"
+            },
+            "comportement": {
+                "sociabilité": "Vivant en banc",
+                "mode_de_vie": "Diurne",
+                "territorial": "Non",
+                "type_de_nage": "Vif"
+            },
+            "reproduction": "Le poisson zèbre est un poisson ovipare qui pond en eau libre."
+        },
+        {
+            "id": 4,
+            "nom": "Scalaire",
+            "introduction": "Le Pterophyllum scalare, plus communément appelé scalaire, est un poisson tropical originaire d'Amérique du sud.",
+            "caracteristiques": {
+                "taille": "Entre 15 et 20cm",
+                "temperature": "24 - 26°C",
+                "pH": "6.0 - 7.2",
+                "GH": "6 - 9",
+                "Courant": "Faible - Moyen"
+            },
+            "comportement": {
+                "sociabilité": "Vivant en grands groupes",
+                "mode_de_vie": "Diurne",
+                "territorial": "Oui",
+                "type_de_nage": "Plutôt calme"
+            },
+            "reproduction": "Le scalaire est un poisson ovipare qui pond sur substrat découvert."
+        },
+        {
+            "id": 5,
+            "nom": "Betta",
+            "introduction": "Le Betta splendens, plus communément appelé combattant, est un petit poisson tropical originaire d'Asie.",
+            "caracteristiques": {
+                "taille": "Entre 4 et 5cm",
+                "temperature": "24 - 28°C",
+                "pH": "6.5 - 7.5",
+                "GH": "5 - 20",
+                "Courant": "Faible - Moyen"
+            },
+            "comportement": {
+                "sociabilité": "Solitaire",
+                "mode_de_vie": "Diurne",
+                "territorial": "Oui",
+                "type_de_nage": "Plutôt calme"
+            },
+            "reproduction": "Le betta possède un des modes de reproduction les plus spectaculaires du monde de l'aquariophilie, au même titre que la plupart des Gouramis. Le mâle, dans une premier temps, alterne entre parade et séduction, toutes nageoires déployées et constrution d'un nid de bulles : il se met à agglutiner des bulles d'air enrobées de mucus salivaire, leur conférant ainsi l'adhésion jusqu'à former une sorte de nacelle flottante. Enlaçant la femelle de tout son corps, le mâle vient presser les flancs de la femelle, qui, ventre en l'air, se met à relâcher les oeufs aussitôt fécondés par le sperme du mâle. Entre deux accouplements, alors que la femelle se laisse tomber vers le fond pour reprendre des forces, le mâle va fixer en hâte les oeufs dans le nid, et empêche la femelle de s'en nourrir car celle-ci développe un appétit pour ses propres oeufs."
+        },
+        {
+            "id": 6,
+            "nom": "Botia",
+            "introduction": "Le Chromobotia macracanthus, plus communément appelé botia clown, est un poisson tropical originaire d'Asie.",
+            "caracteristiques": {
+                "taille": "Entre 15 et 31cm",
+                "temperature": "22 - 30°C",
+                "pH": "5.0 - 7.0",
+                "GH": "5 - 12",
+                "Courant": "Faible - Moyen"
+            },
+            "comportement": {
+                "sociabilité": "Vivant en banc",
+                "mode_de_vie": "Diurne",
+                "territorial": "Non",
+                "type_de_nage": "Plutôt vif"
+            },
+            "reproduction": "Le botia est un poisson ovipare qui pond sur substrat découvert. Dans la nature, c'est un poisson migrateur qui se repoduit dans les cours d'eau avant de rejoindre le lit de revières plus imposantes."
+        },
+        {
+            "id": 7,
+            "nom": "Gourami",
+            "introduction": "Le Gourami est un poisson tropical originaire d'Asie.",
+            "caracteristiques": {
+                "taille": "Entre 5 et 6cm",
+                "temperature": "22 - 28°C",
+                "pH": "6.5 - 7.0",
+                "GH": "3 - 15",
+                "Courant": "Faible - Moyen"
+            },
+            "comportement": {
+                "sociabilité": "Vivant en couple ou en groupe",
+                "mode_de_vie": "Diurne",
+                "territorial": "Oui",
+                "type_de_nage": "Calme"
+            },
+            "reproduction": "Le gourami est un poisson ovipare réalisant des nids de bulles."
+        },
+        {
+            "id": 8,
+            "nom": "Pangio kuhli",
+            "introduction": "Le Pangio kuhli, plus communément appelé kuhli, est un poisson tropical d'eau douce originaire d'Asie.",
+            "caracteristiques": {
+                "taille": "Entre 8 et 10cm",
+                "temperature": "24 - 28°C",
+                "pH": "5.5 - 7.0",
+                "GH": "1 - 13",
+                "Courant": "Modéré - Lent - Stagnant"
+            },
+            "comportement": {
+                "sociabilité": "Vivant en grand groupe",
+                "mode_de_vie": "Nocturne",
+                "territorial": "Non",
+                "type_de_nage": "Plutôt vif"
+            },
+            "reproduction": "Le kuhli est un poisson dont le mode de reproduction est encore inconnu."
+        },
+        {
+            "id": 9,
+            "nom": "Ancistrus",
+            "introduction": "L'Ancistrus est un poisson tropical d'eau douce originaire d'Amérique du Sud.",
+            "caracteristiques": {
+                "taille": "Entre 12 et 15cm",
+                "temperature": "23 - 28°C",
+                "pH": "5.0 - 7.5",
+                "GH": "5 - 12",
+                "Courant": "Faible - Moyen"
+            },
+            "comportement": {
+                "sociabilité": "Solitaire",
+                "mode_de_vie": "Nocturne",
+                "territorial": "Oui",
+                "type_de_nage": "Plutôt calme"
+            },
+            "reproduction": "L'ancistrus est un poisson ovipare qui pond sur substrat caché."
+        }
+    ]
+ }

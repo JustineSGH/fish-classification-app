@@ -3,6 +3,7 @@ package com.example.fishrecognition;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,7 +32,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements Callback{
+public class MainActivity extends AppCompatActivity{
 
     ImageView idImage;
     Integer SELECT_FILE = 0;
@@ -41,16 +42,20 @@ public class MainActivity extends AppCompatActivity implements Callback{
     public static final int WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1;
     public static final int READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 2;
     public static final int REQUEST_IMAGE_CAPTURE = 1;
-    ConnectionServer connection = new ConnectionServer();
+    public Context context;
+    public ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context =  getApplicationContext();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         idImage = (ImageView) findViewById(R.id.idImage);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -157,15 +162,10 @@ public class MainActivity extends AppCompatActivity implements Callback{
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onGetData(JSONObject obj) {
-        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-        intent.putExtra("ResultObject", obj.toString());
-        startActivity(intent);
-    }
-
     public void onClickSendToServer(View view) {
-        connection.registerCallback(this);
-        connection.postData(thumbnail);
+        progressBar.setVisibility(View.VISIBLE);
+        ConnectionServer connectionServer = new ConnectionServer(context);
+        connectionServer.setProgressBar(progressBar);
+        connectionServer.execute(thumbnail);
     }
 }

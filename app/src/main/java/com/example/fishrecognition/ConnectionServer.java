@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,6 +28,8 @@ public class ConnectionServer extends AsyncTask<Bitmap, Void, JSONObject> {
     //private static final String NOTIF_CHANNEL_ID = "Channel_Id";
     private Context context;
     ProgressBar progressBar;
+    private Bitmap image;
+    private  byte[] byteArray;
 
     public ConnectionServer(Context context){
         this.context = context.getApplicationContext();
@@ -41,8 +44,25 @@ public class ConnectionServer extends AsyncTask<Bitmap, Void, JSONObject> {
         super.onPreExecute();
     }
 
+    public static Bitmap scaleDownBitmap(Bitmap photo, int newHeight, Context context) {
+
+        final float densityMultiplier = context.getResources().getDisplayMetrics().density;
+
+        int h= (int) (newHeight*densityMultiplier);
+        int w= (int) (h * photo.getWidth()/((double) photo.getHeight()));
+
+        photo=Bitmap.createScaledBitmap(photo, w, h, true);
+
+        return photo;
+    }
+
     @Override
     protected JSONObject doInBackground(Bitmap... imageToSend) {
+        image = imageToSend[0];
+        image = scaleDownBitmap(imageToSend[0], 100, context);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byteArray = stream.toByteArray();
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -103,6 +123,7 @@ public class ConnectionServer extends AsyncTask<Bitmap, Void, JSONObject> {
         }
         Intent intent = new Intent(context, ResultActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("image", byteArray);
         intent.putExtra("ResultObject", result.toString());
         context.startActivity(intent);
     }

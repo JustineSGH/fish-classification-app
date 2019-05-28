@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity{
     public static final int REQUEST_IMAGE_CAPTURE = 1;
     public Context context;
     public ProgressBar progressBar;
+    public Button buttonSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,9 @@ public class MainActivity extends AppCompatActivity{
         idImage = (ImageView) findViewById(R.id.idImage);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+
+        buttonSend = findViewById(R.id.buttonSend);
+        buttonSend.setVisibility(View.INVISIBLE);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -85,11 +90,13 @@ public class MainActivity extends AppCompatActivity{
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                     if(intent.resolveActivity(getPackageManager()) != null){
                         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                        buttonSend.setVisibility(View.VISIBLE);
                     }
                 }else if(items[which].equals("Gallerie")){
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     startActivityForResult(intent.createChooser(intent, "Selectionner un fichier"), SELECT_FILE);
+                    buttonSend.setVisibility(View.VISIBLE);
                 }else if(items[which].equals("Annuler")){
                     dialog.dismiss();
                 }

@@ -37,6 +37,7 @@ public class ResultActivity extends AppCompatActivity {
     private Context context;
     public TextView textViewName, textViewScore, textViewIntroduction, textViewReproduction;
     public TextView textViewNage, textViewSociabilite, textViewTerritorial;
+    public TextView textViewTemperature, textViewCourant, textViewTaille, textViewPH, textViewGH;
     public ImageView imageView;
 
     @Override
@@ -56,13 +57,15 @@ public class ResultActivity extends AppCompatActivity {
         textViewNage = findViewById(R.id.textViewNage);
         textViewSociabilite = findViewById(R.id.textViewSociabilite);
         textViewTerritorial = findViewById(R.id.textViewTerritorial);
+        textViewTemperature = findViewById(R.id.textViewTemperature);
+        textViewCourant = findViewById(R.id.textViewCourant);
+        textViewTaille = findViewById(R.id.textViewTaille);
+        textViewPH = findViewById(R.id.textViewPH);
+        textViewGH = findViewById(R.id.textViewGH);
 
         byte[] byteArray = getIntent().getByteArrayExtra("image");
         image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-
         imageView.setImageBitmap(image);
-
-
 
         try {
             object = new JSONObject(getIntent().getStringExtra("ResultObject"));
@@ -73,7 +76,6 @@ public class ResultActivity extends AppCompatActivity {
             double percentage = result.getDouble("percentage");
             getFishObject(fish_name);
 
-            textViewName.setText(fish_name);
             textViewScore.setText(df.format(percentage) + "%");
             //textViewName.setText(String.format("Nom : %s - Pourcentage : %s", fish_name, + "%"));
         } catch (JSONException e) {
@@ -116,13 +118,19 @@ public class ResultActivity extends AppCompatActivity {
                     case "guppy":
                         try {
                             JSONObject object = (JSONObject) jsArray.get(0);
+                            textViewName.setText(object.getString("nom"));
                             textViewReproduction.setText(object.getString("reproduction"));
                             textViewIntroduction.setText(object.getString("introduction"));
                             JSONObject comportement = object.getJSONObject("comportement");
                             textViewNage.setText(comportement.getString("type_de_nage"));
                             textViewSociabilite.setText(comportement.getString("sociabilité"));
                             textViewTerritorial.setText(comportement.getString("territorial"));
-                            Log.d("result", String.valueOf(comportement.getString("type_de_nage")));
+                            JSONObject caracteristique = object.getJSONObject("caracteristiques");
+                            textViewTemperature.setText(caracteristique.getString("temperature"));
+                            textViewCourant.setText(caracteristique.getString("Courant"));
+                            textViewTaille.setText(caracteristique.getString("taille"));
+                            textViewPH.setText(caracteristique.getString("pH"));
+                            textViewGH.setText(caracteristique.getString("GH"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -130,8 +138,19 @@ public class ResultActivity extends AppCompatActivity {
                     case "neon":
                         try {
                             JSONObject object = (JSONObject) jsArray.get(1);
+                            textViewName.setText(object.getString("nom"));
                             textViewReproduction.setText(object.getString("reproduction"));
                             textViewIntroduction.setText(object.getString("introduction"));
+                            JSONObject comportement = object.getJSONObject("comportement");
+                            textViewNage.setText(comportement.getString("type_de_nage"));
+                            textViewSociabilite.setText(comportement.getString("sociabilité"));
+                            textViewTerritorial.setText(comportement.getString("territorial"));
+                            JSONObject caracteristique = object.getJSONObject("caracteristiques");
+                            textViewTemperature.setText(caracteristique.getString("temperature"));
+                            textViewCourant.setText(caracteristique.getString("Courant"));
+                            textViewTaille.setText(caracteristique.getString("taille"));
+                            textViewPH.setText(caracteristique.getString("pH"));
+                            textViewGH.setText(caracteristique.getString("GH"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -140,8 +159,19 @@ public class ResultActivity extends AppCompatActivity {
                         JSONObject object = null;
                         try {
                             object = (JSONObject) jsArray.get(2);
+                            textViewName.setText(object.getString("nom"));
                             textViewReproduction.setText(object.getString("reproduction"));
                             textViewIntroduction.setText(object.getString("introduction"));
+                            JSONObject comportement = object.getJSONObject("comportement");
+                            textViewNage.setText(comportement.getString("type_de_nage"));
+                            textViewSociabilite.setText(comportement.getString("sociabilité"));
+                            textViewTerritorial.setText(comportement.getString("territorial"));
+                            JSONObject caracteristique = object.getJSONObject("caracteristiques");
+                            textViewTemperature.setText(caracteristique.getString("temperature"));
+                            textViewCourant.setText(caracteristique.getString("Courant"));
+                            textViewTaille.setText(caracteristique.getString("taille"));
+                            textViewPH.setText(caracteristique.getString("pH"));
+                            textViewGH.setText(caracteristique.getString("GH"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -149,8 +179,19 @@ public class ResultActivity extends AppCompatActivity {
                     case "scalaire":
                         try {
                             object = (JSONObject) jsArray.get(3);
+                            textViewName.setText(object.getString("nom"));
                             textViewReproduction.setText(object.getString("reproduction"));
                             textViewIntroduction.setText(object.getString("introduction"));
+                            JSONObject comportement = object.getJSONObject("comportement");
+                            textViewNage.setText(comportement.getString("type_de_nage"));
+                            textViewSociabilite.setText(comportement.getString("sociabilité"));
+                            textViewTerritorial.setText(comportement.getString("territorial"));
+                            JSONObject caracteristique = object.getJSONObject("caracteristiques");
+                            textViewTemperature.setText(caracteristique.getString("temperature"));
+                            textViewCourant.setText(caracteristique.getString("Courant"));
+                            textViewTaille.setText(caracteristique.getString("taille"));
+                            textViewPH.setText(caracteristique.getString("pH"));
+                            textViewGH.setText(caracteristique.getString("GH"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -159,8 +200,19 @@ public class ResultActivity extends AppCompatActivity {
                     case "betta":
                         try {
                             object = (JSONObject) jsArray.get(4);
+                            textViewName.setText(object.getString("nom"));
                             textViewReproduction.setText(object.getString("reproduction"));
                             textViewIntroduction.setText(object.getString("introduction"));
+                            JSONObject comportement = object.getJSONObject("comportement");
+                            textViewNage.setText(comportement.getString("type_de_nage"));
+                            textViewSociabilite.setText(comportement.getString("sociabilité"));
+                            textViewTerritorial.setText(comportement.getString("territorial"));
+                            JSONObject caracteristique = object.getJSONObject("caracteristiques");
+                            textViewTemperature.setText(caracteristique.getString("temperature"));
+                            textViewCourant.setText(caracteristique.getString("Courant"));
+                            textViewTaille.setText(caracteristique.getString("taille"));
+                            textViewPH.setText(caracteristique.getString("pH"));
+                            textViewGH.setText(caracteristique.getString("GH"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -169,8 +221,19 @@ public class ResultActivity extends AppCompatActivity {
                     case "botia":
                         try {
                             object = (JSONObject) jsArray.get(5);
+                            textViewName.setText(object.getString("nom"));
                             textViewReproduction.setText(object.getString("reproduction"));
                             textViewIntroduction.setText(object.getString("introduction"));
+                            JSONObject comportement = object.getJSONObject("comportement");
+                            textViewNage.setText(comportement.getString("type_de_nage"));
+                            textViewSociabilite.setText(comportement.getString("sociabilité"));
+                            textViewTerritorial.setText(comportement.getString("territorial"));
+                            JSONObject caracteristique = object.getJSONObject("caracteristiques");
+                            textViewTemperature.setText(caracteristique.getString("temperature"));
+                            textViewCourant.setText(caracteristique.getString("Courant"));
+                            textViewTaille.setText(caracteristique.getString("taille"));
+                            textViewPH.setText(caracteristique.getString("pH"));
+                            textViewGH.setText(caracteristique.getString("GH"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -179,8 +242,19 @@ public class ResultActivity extends AppCompatActivity {
                     case "gourami":
                         try {
                             object = (JSONObject) jsArray.get(6);
+                            textViewName.setText(object.getString("nom"));
                             textViewReproduction.setText(object.getString("reproduction"));
                             textViewIntroduction.setText(object.getString("introduction"));
+                            JSONObject comportement = object.getJSONObject("comportement");
+                            textViewNage.setText(comportement.getString("type_de_nage"));
+                            textViewSociabilite.setText(comportement.getString("sociabilité"));
+                            textViewTerritorial.setText(comportement.getString("territorial"));
+                            JSONObject caracteristique = object.getJSONObject("caracteristiques");
+                            textViewTemperature.setText(caracteristique.getString("temperature"));
+                            textViewCourant.setText(caracteristique.getString("Courant"));
+                            textViewTaille.setText(caracteristique.getString("taille"));
+                            textViewPH.setText(caracteristique.getString("pH"));
+                            textViewGH.setText(caracteristique.getString("GH"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -189,8 +263,19 @@ public class ResultActivity extends AppCompatActivity {
                     case "pangio_kuhli":
                         try {
                             object = (JSONObject) jsArray.get(7);
+                            textViewName.setText(object.getString("nom"));
                             textViewReproduction.setText(object.getString("reproduction"));
                             textViewIntroduction.setText(object.getString("introduction"));
+                            JSONObject comportement = object.getJSONObject("comportement");
+                            textViewNage.setText(comportement.getString("type_de_nage"));
+                            textViewSociabilite.setText(comportement.getString("sociabilité"));
+                            textViewTerritorial.setText(comportement.getString("territorial"));
+                            JSONObject caracteristique = object.getJSONObject("caracteristiques");
+                            textViewTemperature.setText(caracteristique.getString("temperature"));
+                            textViewCourant.setText(caracteristique.getString("Courant"));
+                            textViewTaille.setText(caracteristique.getString("taille"));
+                            textViewPH.setText(caracteristique.getString("pH"));
+                            textViewGH.setText(caracteristique.getString("GH"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -199,8 +284,19 @@ public class ResultActivity extends AppCompatActivity {
                     case "ancistrus":
                         try {
                             object = (JSONObject) jsArray.get(8);
+                            textViewName.setText(object.getString("nom"));
                             textViewReproduction.setText(object.getString("reproduction"));
                             textViewIntroduction.setText(object.getString("introduction"));
+                            JSONObject comportement = object.getJSONObject("comportement");
+                            textViewNage.setText(comportement.getString("type_de_nage"));
+                            textViewSociabilite.setText(comportement.getString("sociabilité"));
+                            textViewTerritorial.setText(comportement.getString("territorial"));
+                            JSONObject caracteristique = object.getJSONObject("caracteristiques");
+                            textViewTemperature.setText(caracteristique.getString("temperature"));
+                            textViewCourant.setText(caracteristique.getString("Courant"));
+                            textViewTaille.setText(caracteristique.getString("taille"));
+                            textViewPH.setText(caracteristique.getString("pH"));
+                            textViewGH.setText(caracteristique.getString("GH"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
